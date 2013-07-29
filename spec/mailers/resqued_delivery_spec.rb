@@ -17,9 +17,10 @@ describe ResquedDelivery do
   end
 
   it "adds a `perform` class method that is used by Resque to deliver mail" do
-    expect {
-      WidgetMailer.method :perform
-    }.to_not raise_error
+    mailer = double.as_null_object
+    expect(WidgetMailer).to receive(:new).with("confirmation", 13).and_return mailer
+    expect(mailer).to receive(:deliver!)
+    WidgetMailer.perform "confirmation", 13
   end
 
   describe "intercepting mailer action methods & inserting Resque call" do

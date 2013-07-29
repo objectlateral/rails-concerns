@@ -5,7 +5,7 @@ module ResquedDelivery
   end
 
   module ClassMethods
-    def perform
+    def perform action, *args
       self.send(:new, action, *args).message.deliver!
     end
 
