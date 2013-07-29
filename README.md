@@ -31,6 +31,17 @@ Provides human readable unique strings using each model's `id` attribute. Great 
     paul.encoded_id # => "xyz"
     Person.where_encoded_id("xyz").first.name => "Paul"
 
+### PasswordAuth
+
+Provides basic password setting and authenticating via [bcrypt][bcrypt]. Including models must have an `encrypted_password` attribute.
+
+    class User < ActiveRecord::Base
+      include PasswordAUth
+    end
+
+    user = User.new password: "test1234"
+    user.authenticate "test1234" # => user object
+    user.authenticate "test4321" # => false
 
 ## Mailer Concerns Included
 
@@ -50,3 +61,5 @@ Makes any `ActionMailer::Base` subclass transparently send its mail via Resque.
     OrderMailer.confirmation(3).deliver # => queued in Resque
 
 Note: this concern is short-circuited in `Rails.env.test` so you can confirm email is sent like normal
+
+[bcrypt]:https://github.com/codahale/bcrypt-ruby
