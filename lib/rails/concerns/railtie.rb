@@ -4,6 +4,7 @@ module Rails
       initializer "concerns.autoload", before: :set_autoload_paths do |app|
         concerns_root = File.dirname __FILE__
         app.config.autoload_paths << File.join(concerns_root, "models")
+        app.config.autoload_paths << File.join(concerns_root, "mailers")
       end
     end
   end
