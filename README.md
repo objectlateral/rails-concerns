@@ -30,3 +30,23 @@ Provides human readable unique strings using each model's `id` attribute. Great 
     paul.id # => 20355
     paul.encoded_id # => "xyz"
     Person.where_encoded_id("xyz").first.name => "Paul"
+
+
+## Mailer Concerns Included
+
+## ResquedDelivery
+
+Makes any `ActionMailer::Base` subclass transparently send its mail via Resque.
+
+    class OrderMailer < ActionMailer::Base
+      include ResquedDelivery
+
+      def confirmation order_id
+        @order = Order.find order_id
+        mail to: @order.email
+      end
+    end
+
+    OrderMailer.confirmation(3).deliver # => queued in Resque
+
+Note: this concern is short-circuited in `Rails.env.test` so you can confirm email is sent like normal
