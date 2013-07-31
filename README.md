@@ -1,6 +1,6 @@
 # Rails::Concerns
 
-Common concerns (modules) to be mixed in to Rails models and controllers
+Common concerns (modules) to be mixed in to Rails models, controllers, and mailers.
 
 ## Installation
 
