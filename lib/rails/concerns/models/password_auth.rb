@@ -1,10 +1,10 @@
 require "bcrypt"
 
 module PasswordAuth
+  extend Rails::Concerns::Helpers
+
   def self.included base
-    if base.columns.map(&:name).exclude? "encrypted_password"
-      raise NotImplementedError, "model must have 'encrypted_password' column"
-    end
+    require_column base, "encrypted_password"
   end
 
   def password= unencrypted_password

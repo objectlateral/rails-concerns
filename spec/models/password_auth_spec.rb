@@ -1,4 +1,5 @@
 require "spec_helper"
+require "rails/concerns/helpers"
 require "models/password_auth"
 
 ActiveRecord::Migration.create_table :users do |t|
