@@ -1,4 +1,4 @@
-require "spec_helper"
+require "spec_helper_mailers"
 require "mailers/resqued_delivery"
 
 class WidgetMailer < ActionMailer::Base

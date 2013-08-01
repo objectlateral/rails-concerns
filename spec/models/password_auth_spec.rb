@@ -1,15 +1,6 @@
-require "spec_helper"
+require "spec_helper_models"
 require "rails/concerns/helpers"
 require "models/password_auth"
-
-ActiveRecord::Migration.create_table :users do |t|
-  t.string :encrypted_password
-  t.timestamps
-end
-
-ActiveRecord::Migration.create_table :people do |t|
-  t.timestamps
-end
 
 class User < ActiveRecord::Base
   include PasswordAuth

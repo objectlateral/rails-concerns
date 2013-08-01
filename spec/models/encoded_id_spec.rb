@@ -1,10 +1,5 @@
-require "spec_helper"
+require "spec_helper_models"
 require "models/encoded_id"
-
-ActiveRecord::Migration.create_table :widgets do |t|
-  t.string :name
-  t.timestamps
-end
 
 class Widget < ActiveRecord::Base
   include EncodedId
