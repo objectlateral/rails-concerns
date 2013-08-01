@@ -43,6 +43,21 @@ Provides basic password setting and authenticating via [bcrypt][bcrypt]. Includi
     user.authenticate "test1234" # => user object
     user.authenticate "test4321" # => false
 
+### TokenizedAttributes
+
+Provides easy generation of random SHA tokens for a model's attributes.
+
+    class Document < ActiveRecord::Base
+      include TokenizedAttributes
+
+      tokenize :slug
+    end
+
+    d = Document.create
+    d.slug # db89148af5c734ed8f34cb1402b699d63784591f
+    d.regenerate_token :slug
+    d.slug # cfa5946b9cb1abc80c02f050f383f06514fb70da
+
 ## Mailer Concerns Included
 
 ## ResquedDelivery
