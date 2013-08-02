@@ -1,4 +1,4 @@
-# Rails::Concerns
+# Rails::Concerns [![Code Climate](https://codeclimate.com/github/objectlateral/rails-concerns.png)][cc]
 
 Common concerns (modules) to be mixed in to Rails models, controllers, and mailers.
 
@@ -77,4 +77,5 @@ Makes any `ActionMailer::Base` subclass transparently send its mail via Resque.
 
 Note: this concern is short-circuited in `Rails.env.test` so you can confirm email is sent like normal
 
+[cc]:https://codeclimate.com/github/objectlateral/rails-concerns
 [bcrypt]:https://github.com/codahale/bcrypt-ruby
