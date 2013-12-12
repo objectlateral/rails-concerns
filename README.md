@@ -75,7 +75,7 @@ Makes any `ActionMailer::Base` subclass transparently send its mail via Resque.
 
     OrderMailer.confirmation(3).deliver # => queued in Resque
 
-Note: this concern is short-circuited in `Rails.env.test` so you can confirm email is sent like normal
+Note: this concern is short-circuited in `dev` and `test` environments so you can confirm email is sent like normal
 
 [cc]:https://codeclimate.com/github/objectlateral/rails-concerns
 [bcrypt]:https://github.com/codahale/bcrypt-ruby

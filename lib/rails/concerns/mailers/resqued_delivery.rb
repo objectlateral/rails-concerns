@@ -10,7 +10,8 @@ module ResquedDelivery
     end
 
     def method_missing method_name, *args
-      return super if Rails.env.test? || action_methods.exclude?(method_name.to_s)
+      return super if %w(development test).include? Rails.env
+      return super if action_methods.exclude? method_name.to_s
 
       worker = self
 

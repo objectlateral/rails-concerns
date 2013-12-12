@@ -37,7 +37,14 @@ describe ResquedDelivery do
     end
 
     it "doesn't send to Resque when Rails env is test" do
-      Rails.stub_chain(:env, :test?).and_return true
+      Rails.stub(:env).and_return "test"
+      expect(Resque).to_not receive :enqueue
+      message = WidgetMailer.confirmation 1
+      message.deliver
+    end
+
+    it "doesn't send to Resque when Rails env is development" do
+      Rails.stub(:env).and_return "development"
       expect(Resque).to_not receive :enqueue
       message = WidgetMailer.confirmation 1
       message.deliver
