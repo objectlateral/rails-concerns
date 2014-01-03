@@ -42,5 +42,10 @@ describe PasswordAuth do
       user.password = "test1234"
       expect(user.authenticate("test4321")).to be_false
     end
+
+    it "returns false when encrypted_password is empty" do
+      user.encrypted_password = nil
+      expect(user.authenticate("test4321")).to be_false
+    end
   end
 end

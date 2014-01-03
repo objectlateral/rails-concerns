@@ -19,5 +19,7 @@ module PasswordAuth
     else
       false
     end
+  rescue BCrypt::Errors::InvalidHash
+    false
   end
 end
