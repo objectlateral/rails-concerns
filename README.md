@@ -58,9 +58,37 @@ Provides easy generation of random SHA tokens for a model's attributes.
     d.regenerate_token :slug
     d.slug # cfa5946b9cb1abc80c02f050f383f06514fb70da
 
+## Controller Concerns Included
+
+### JsonRenderer
+
+Adds convenience methods for rendering JSON from controllers
+
+    class ThingsController < ApplicationController
+      include JsonRenderer
+
+      def index
+        things = Thing.all
+        ok things
+      end
+
+      def create
+        thing = Thing.create params
+        created thing
+      end
+
+      def destroy
+        thing = Thing.find params[:id]
+        thing.destroy
+        no_content
+      end
+
+      # ... et cetera
+    end
+
 ## Mailer Concerns Included
 
-## ResquedDelivery
+### ResquedDelivery
 
 Makes any `ActionMailer::Base` subclass transparently send its mail via Resque.
 
