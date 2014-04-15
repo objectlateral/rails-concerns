@@ -22,41 +22,47 @@ Just `include` the modules that your Rails models or controllers are concerned w
 
 Provides human readable unique strings using each model's `id` attribute. Great for short URLs. Usage:
 
-    class Person < ActiveRecord::Base
-      include EncodedId
-    end
+```ruby
+class Person < ActiveRecord::Base
+  include EncodedId
+end
 
-    paul = Person.create name: "Paul"
-    paul.id # => 20355
-    paul.encoded_id # => "xyz"
-    Person.where_encoded_id("xyz").first.name => "Paul"
+paul = Person.create name: "Paul"
+paul.id # => 20355
+paul.encoded_id # => "xyz"
+Person.where_encoded_id("xyz").first.name => "Paul"
+```
 
 ### PasswordAuth
 
 Provides basic password setting and authenticating via [bcrypt][bcrypt]. Including models must have an `encrypted_password` attribute.
 
-    class User < ActiveRecord::Base
-      include PasswordAUth
-    end
+```ruby
+class User < ActiveRecord::Base
+  include PasswordAUth
+end
 
-    user = User.new password: "test1234"
-    user.authenticate "test1234" # => user object
-    user.authenticate "test4321" # => false
+user = User.new password: "test1234"
+user.authenticate "test1234" # => user object
+user.authenticate "test4321" # => false
+```
 
 ### TokenizedAttributes
 
 Provides easy generation of random SHA tokens for a model's attributes.
 
-    class Document < ActiveRecord::Base
-      include TokenizedAttributes
+```ruby
+class Document < ActiveRecord::Base
+  include TokenizedAttributes
 
-      tokenize :slug
-    end
+  tokenize :slug
+end
 
-    d = Document.create
-    d.slug # db89148af5c734ed8f34cb1402b699d63784591f
-    d.regenerate_token :slug
-    d.slug # cfa5946b9cb1abc80c02f050f383f06514fb70da
+d = Document.create
+d.slug # db89148af5c734ed8f34cb1402b699d63784591f
+d.regenerate_token :slug
+d.slug # cfa5946b9cb1abc80c02f050f383f06514fb70da
+```
 
 ## Controller Concerns Included
 
@@ -64,27 +70,29 @@ Provides easy generation of random SHA tokens for a model's attributes.
 
 Adds convenience methods for rendering JSON from controllers
 
-    class ThingsController < ApplicationController
-      include JsonRenderer
+```ruby
+class ThingsController < ApplicationController
+  include JsonRenderer
 
-      def index
-        things = Thing.all
-        ok things
-      end
+  def index
+    things = Thing.all
+    ok things
+  end
 
-      def create
-        thing = Thing.create params
-        created thing
-      end
+  def create
+    thing = Thing.create params
+    created thing
+  end
 
-      def destroy
-        thing = Thing.find params[:id]
-        thing.destroy
-        no_content
-      end
+  def destroy
+    thing = Thing.find params[:id]
+    thing.destroy
+    no_content
+  end
 
-      # ... et cetera
-    end
+  # ... et cetera
+end
+```
 
 ## Mailer Concerns Included
 
@@ -92,16 +100,18 @@ Adds convenience methods for rendering JSON from controllers
 
 Makes any `ActionMailer::Base` subclass transparently send its mail via Resque.
 
-    class OrderMailer < ActionMailer::Base
-      include ResquedDelivery
+```ruby
+class OrderMailer < ActionMailer::Base
+  include ResquedDelivery
 
-      def confirmation order_id
-        @order = Order.find order_id
-        mail to: @order.email
-      end
-    end
+  def confirmation order_id
+    @order = Order.find order_id
+    mail to: @order.email
+  end
+end
 
-    OrderMailer.confirmation(3).deliver # => queued in Resque
+OrderMailer.confirmation(3).deliver # => queued in Resque
+```
 
 Note: this concern is short-circuited in `dev` and `test` environments so you can confirm email is sent like normal
 
