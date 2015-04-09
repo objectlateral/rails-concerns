@@ -25,6 +25,8 @@ module EncodedId
     def where_encoded_id id
       decoded = id_encoder.decode(id).first
       where id: decoded
+    rescue Hashids::InputError
+      raise ActiveRecord::RecordNotFound
     end
   end
 end
