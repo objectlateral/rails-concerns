@@ -94,26 +94,5 @@ class ThingsController < ApplicationController
 end
 ```
 
-## Mailer Concerns Included
-
-### ResquedDelivery
-
-Makes any `ActionMailer::Base` subclass transparently send its mail via Resque.
-
-```ruby
-class OrderMailer < ActionMailer::Base
-  include ResquedDelivery
-
-  def confirmation order_id
-    @order = Order.find order_id
-    mail to: @order.email
-  end
-end
-
-OrderMailer.confirmation(3).deliver # => queued in Resque
-```
-
-Note: this concern is short-circuited in `dev` and `test` environments so you can confirm email is sent like normal
-
 [cc]:https://codeclimate.com/github/objectlateral/rails-concerns
 [bcrypt]:https://github.com/codahale/bcrypt-ruby
