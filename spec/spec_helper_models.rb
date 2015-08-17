@@ -19,6 +19,12 @@ ActiveRecord::Migration.create_table :widgets do |t|
   t.timestamps null: false
 end
 
+ActiveRecord::Migration.create_table :blurgs do |t|
+  t.string :name
+  t.string :slug
+  t.timestamps null: false
+end
+
 RSpec.configure do |config|
   config.around do |example|
     ActiveRecord::Base.transaction do

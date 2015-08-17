@@ -47,6 +47,24 @@ user.authenticate "test1234" # => user object
 user.authenticate "test4321" # => false
 ```
 
+### Slugged
+
+Automatically generates slug fields using array of attributes returned from
+`slug_parts` method (defaults to `[title]`).
+
+```ruby
+class BlogPost < ActiveRecord::Base
+  include Slugged
+
+  def slug_parts
+    [title, id]
+  end
+end
+
+post = BlogPost.create title: "Test Post"
+post.slug # "test-post"
+```
+
 ### TokenizedAttributes
 
 Provides easy generation of random SHA tokens for a model's attributes.
