@@ -1,6 +1,24 @@
 require "hashids"
 
 module EncodedId
+  class IdEncoder
+    attr_reader :hashids, :salt
+    def initialize salt
+      @salt = salt
+      @hashids = Hashids.new @salt, 0, "23456789abcdefghjkmnpqrstuvwxyz"
+    end
+
+    def encode id
+      hashids.encode id
+    end
+
+    def decode id
+      hashids.decode(id).first
+    rescue Hashids::InputError
+      raise ActiveRecord::RecordNotFound
+    end
+  end
+
   def self.included base
     base.extend ClassMethods
   end
@@ -19,21 +37,19 @@ module EncodedId
     end
 
     def id_encoder
-      Hashids.new id_encoder_salt, 0, "23456789abcdefghjkmnpqrstuvwxyz"
+      IdEncoder.new id_encoder_salt
     end
 
     def find_by_encoded_id id
-        decoded = id_encoder.decode(id).first
-        find_by id: decoded
-    rescue Hashids::InputError
-      raise ActiveRecord::RecordNotFound
+      find_by id: id_encoder.decode(id)
+    end
+
+    def find_by_encoded_id! id
+      find_by! id: id_encoder.decode(id)
     end
 
     def where_encoded_id id
-      decoded = id_encoder.decode(id).first
-      where id: decoded
-    rescue Hashids::InputError
-      raise ActiveRecord::RecordNotFound
+      where id: id_encoder.decode(id)
     end
   end
 end
