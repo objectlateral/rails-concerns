@@ -23,6 +23,21 @@ describe EncodedId do
     end
   end
 
+  describe "minimum length" do
+    after do
+      Widget.id_encoder_min_length = nil
+    end
+
+    it "starts off as 0" do
+      expect(Widget.id_encoder.min_length).to eq 0
+    end
+
+    it "can be changed to something else" do
+      Widget.id_encoder_min_length = 8
+      expect(Widget.id_encoder.min_length).to eq 8
+    end
+  end
+
   describe ".find_by_encoded_id" do
     it "calls AR .find_by with nil when passed nil" do
       expect(Widget).to receive(:find_by).with id: nil
