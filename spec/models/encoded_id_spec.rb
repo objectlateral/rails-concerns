@@ -23,6 +23,25 @@ describe EncodedId do
     end
   end
 
+  describe ".find_by_encoded_id" do
+    it "calls AR .find_by with nil when passed nil" do
+      expect(Widget).to receive(:find_by).with id: nil
+      Widget.find_by_encoded_id nil
+    end
+
+    it "calls AR .find_by with decoded id" do
+      # endk6x8 => 10_000_000 is known decode
+      expect(Widget).to receive(:find_by).with id: 10_000_000
+      Widget.find_by_encoded_id "endk6x8"
+    end
+
+    it "raises AR error when passed invalid hash" do
+      expect {
+        Widget.find_by_encoded_id "browserconfig.xml"
+      }.to raise_error ActiveRecord::RecordNotFound
+    end
+  end
+
   describe ".where_encoded_id" do
     it "calls AR .where with nil when passed nil" do
       expect(Widget).to receive(:where).with id: nil

@@ -22,6 +22,13 @@ module EncodedId
       Hashids.new id_encoder_salt, 0, "23456789abcdefghjkmnpqrstuvwxyz"
     end
 
+    def find_by_encoded_id id
+        decoded = id_encoder.decode(id).first
+        find_by id: decoded
+    rescue Hashids::InputError
+      raise ActiveRecord::RecordNotFound
+    end
+
     def where_encoded_id id
       decoded = id_encoder.decode(id).first
       where id: decoded
