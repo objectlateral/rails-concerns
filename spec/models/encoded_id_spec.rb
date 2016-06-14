@@ -10,7 +10,7 @@ describe EncodedId do
 
   describe "salt" do
     after do
-      Widget.id_encoder_salt = nil
+      Widget.encoded_id_salt = nil
     end
 
     it "starts off as 'salty goodness'" do
@@ -18,14 +18,14 @@ describe EncodedId do
     end
 
     it "can be changed to something else" do
-      Widget.id_encoder_salt = "so so salty"
+      Widget.encoded_id_salt = "so so salty"
       expect(Widget.id_encoder.salt).to eq "so so salty"
     end
   end
 
   describe "minimum length" do
     after do
-      Widget.id_encoder_min_length = nil
+      Widget.encoded_id_min_length = nil
     end
 
     it "starts off as 0" do
@@ -33,7 +33,7 @@ describe EncodedId do
     end
 
     it "can be changed to something else" do
-      Widget.id_encoder_min_length = 8
+      Widget.encoded_id_min_length = 8
       expect(Widget.id_encoder.min_length).to eq 8
     end
   end
