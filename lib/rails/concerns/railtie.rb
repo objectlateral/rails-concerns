@@ -2,9 +2,9 @@ module Rails
   module Concerns
     class Railtie < Rails::Railtie
       initializer "concerns.autoload", before: :set_autoload_paths do |app|
-        concerns_root = File.dirname __FILE__
-        app.config.autoload_paths << File.join(concerns_root, "models")
-        app.config.autoload_paths << File.join(concerns_root, "mailers")
+        models_path = File.join File.dirname(__FILE__), "models"
+        mailers_path = File.join File.dirname(__FILE__), "mailers"
+        app.config.autoload_paths += [models_path, mailers_path]
       end
     end
   end
