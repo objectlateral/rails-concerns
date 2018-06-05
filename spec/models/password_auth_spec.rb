@@ -40,12 +40,12 @@ describe PasswordAuth do
 
     it "returns false when authentication fails" do
       user.password = "test1234"
-      expect(user.authenticate("test4321")).to be_false
+      expect(user.authenticate("test4321")).to be false
     end
 
     it "returns false when encrypted_password is empty" do
       user.encrypted_password = nil
-      expect(user.authenticate("test4321")).to be_false
+      expect(user.authenticate("test4321")).to be false
     end
   end
 end
