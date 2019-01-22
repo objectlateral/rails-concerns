@@ -82,6 +82,26 @@ d.regenerate_token :slug
 d.slug # cfa5946b9cb1abc80c02f050f383f06514fb70da
 ```
 
+### ValidPhone
+
+Provides sanitization, validation, and classify-ication of phone numbers
+
+```ruby
+class Person < ActiveRecord::Base
+  include ValidPhone
+
+  valid_phone :cell_phone
+end
+
+p = Person.new
+p.cell_phone = "867 5309"
+p.valid? # false
+p.cell_phone = "402 867 5309"
+p.valid? # true
+p.cell_phone # "4028675309"
+p.class_cell_phone # (402) 867-5309
+```
+
 ## Controller Concerns Included
 
 ### JsonRenderer

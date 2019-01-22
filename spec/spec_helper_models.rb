@@ -9,6 +9,8 @@ end
 
 ActiveRecord::Migration.create_table :users do |t|
   t.string :encrypted_password
+  t.string :cell_phone
+  t.string :home_phone
   t.timestamps null: false
 end
 
