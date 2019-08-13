@@ -5,7 +5,7 @@ module ValidPhone
 
   module ClassMethods
     def valid_phone attribute, options={}
-      validation_options = {format: /\A\d{10}\Z/}.merge options
+      validation_options = {format: /\A\d{10,11}\Z/}.merge options
       validates attribute, validation_options
       before_validation "sanitize_#{attribute}".to_sym
 

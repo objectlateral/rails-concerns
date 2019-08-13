@@ -16,6 +16,8 @@ describe ValidPhone do
     expect(user).not_to be_valid
     user.cell_phone = "4028675309"
     expect(user).to be_valid
+    user.cell_phone = "+1 5052369443"
+    expect(user).to be_valid
   end
 
   it "validates format on blankable attr as well" do
